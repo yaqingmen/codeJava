@@ -6,6 +6,8 @@ import pojo.Cross;
 import pojo.Road;
 import utils.ReadData;
 
+
+import java.util.LinkedList;
 import java.util.List;
 
 public class TestUtils {
@@ -31,4 +33,5 @@ public class TestUtils {
         listCross = ReadData.readCross("data/Cross.txt");
         System.out.println(listCross);
     }
+
 }

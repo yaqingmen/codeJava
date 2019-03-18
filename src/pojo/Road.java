@@ -2,7 +2,7 @@ package pojo;
 
 public class Road {
     private int id; //id
-    private int length; //
+    private int length; //道路长度
     private int speedLimit; //最高限速
     private int laneNums;   //车道数目
     private int beginId;    //起始点id
