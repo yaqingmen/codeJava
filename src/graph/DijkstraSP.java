@@ -38,7 +38,7 @@ public class DijkstraSP {
      */
     public DijkstraSP(EdgeWeightedDigraph G, int s) {
         for (DirectedEdge e : G.edges()) {
-            if (e.weight() < 0)
+            if (e.getWeight() < 0)
                 throw new IllegalArgumentException("edge " + e + " has negative weight");
         }
 
@@ -67,8 +67,8 @@ public class DijkstraSP {
     // relax edge e and update pq if changed
     private void relax(DirectedEdge e) {
         int v = e.from(), w = e.to();
-        if (distTo[w] > distTo[v] + e.weight()) {
-            distTo[w] = distTo[v] + e.weight();
+        if (distTo[w] > distTo[v] + e.getWeight()) {
+            distTo[w] = distTo[v] + e.getWeight();
             edgeTo[w] = e;
             if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
             else                pq.insert(w, distTo[w]);
@@ -126,7 +126,7 @@ public class DijkstraSP {
 
         // check that edge weights are nonnegative
         for (DirectedEdge e : G.edges()) {
-            if (e.weight() < 0) {
+            if (e.getWeight() < 0) {
                 System.err.println("negative edge weight detected");
                 return false;
             }
@@ -149,7 +149,7 @@ public class DijkstraSP {
         for (int v = 0; v < G.V(); v++) {
             for (DirectedEdge e : G.adj(v)) {
                 int w = e.to();
-                if (distTo[v] + e.weight() < distTo[w]) {
+                if (distTo[v] + e.getWeight() < distTo[w]) {
                     System.err.println("edge " + e + " not relaxed");
                     return false;
                 }
@@ -162,7 +162,7 @@ public class DijkstraSP {
             DirectedEdge e = edgeTo[w];
             int v = e.from();
             if (w != e.to()) return false;
-            if (distTo[v] + e.weight() != distTo[w]) {
+            if (distTo[v] + e.getWeight() != distTo[w]) {
                 System.err.println("edge " + e + " on shortest path not tight");
                 return false;
             }

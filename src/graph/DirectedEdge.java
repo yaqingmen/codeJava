@@ -18,7 +18,7 @@ public class DirectedEdge {
     private final int id;
     private final int v;
     private final int w;
-    private final double weight;
+    private double weight;
 
 
     /**
@@ -66,10 +66,13 @@ public class DirectedEdge {
      *
      * @return the weight of the directed edge
      */
-    public double weight() {
+    public double getWeight() {
         return weight;
     }
 
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 
     /**
      * Returns a string representation of the directed edge.
@@ -78,7 +81,7 @@ public class DirectedEdge {
      */
     public String toString() {
         //return v + "->" + w + " " ; //+ String.format("%5.2f", weight);
-        return id + " ";
+        return id +"";
     }
 
     /**

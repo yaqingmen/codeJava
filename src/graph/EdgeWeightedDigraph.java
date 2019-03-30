@@ -1,6 +1,8 @@
 package graph;
 
 
+import java.util.List;
+import java.util.Map;
 
 /**
  *  The {@code EdgeWeightedDigraph} class represents a edge-weighted
@@ -31,7 +33,8 @@ public class EdgeWeightedDigraph {
     private final int V;                // number of vertices in this digraph
     private int E;                      // number of edges in this digraph
     private Bag<DirectedEdge>[] adj;    // adj[v] = adjacency list for vertex v
-    private int[] indegree;             // indegree[v] = indegree of vertex v
+    private int[] indegree;// indegree[v] = indegree of vertex v
+    //Map<Integer,Integer> cross2Index;
 
     /**
      * Initializes an empty edge-weighted digraph with {@code V} vertices and 0 edges.
@@ -44,9 +47,11 @@ public class EdgeWeightedDigraph {
         this.V = V;
         this.E = 0;
         this.indegree = new int[V];
+        //this.cross2Index = cross2Index;
         adj = (Bag<DirectedEdge>[]) new Bag[V];
-        for (int v = 0; v < V; v++)
+        for (int v =0; v < V ;v++)
             adj[v] = new Bag<DirectedEdge>();
+
     }
 
 
@@ -83,7 +88,10 @@ public class EdgeWeightedDigraph {
      */
     public void addEdge(DirectedEdge e) {
         int v = e.from();
+//        v = cross2Index.get(v);
         int w = e.to();
+//        w = cross2Index.get(w);
+
         validateVertex(v);
         validateVertex(w);
         adj[v].add(e);
@@ -101,6 +109,7 @@ public class EdgeWeightedDigraph {
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public Iterable<DirectedEdge> adj(int v) {
+        //v = cross2Index.get(v);
         validateVertex(v);
         return adj[v];
     }
@@ -114,6 +123,7 @@ public class EdgeWeightedDigraph {
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public int outdegree(int v) {
+        //v = cross2Index.get(v);
         validateVertex(v);
         return adj[v].size();
     }
@@ -127,6 +137,7 @@ public class EdgeWeightedDigraph {
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public int indegree(int v) {
+        //v = cross2Index.get(v);
         validateVertex(v);
         return indegree[v];
     }

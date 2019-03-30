@@ -1,4 +1,5 @@
 package utils;
+import pojo.Answer;
 import pojo.Car;
 import pojo.Cross;
 import pojo.Road;
@@ -98,6 +99,38 @@ public class ReadData {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            //关闭资源
+            FileUtil.closeBufferedReader(bufferedReader);
+        }
+        return list;
+    }
+    static public List<Answer> readAnswer (String path) {
+        List<Answer> list = new ArrayList<>();
+        String line;
+        FileReader fileReader = FileUtil.getFileReader(path);
+        BufferedReader bufferedReader = FileUtil.getBufferedReader(fileReader);
+        try {
+            while ((line=bufferedReader.readLine())!=null) {
+                String[] info = getInfo(line);
+                //判断info的信息是否与Road的信息一样多，如果是则填充Road对象并加到list里
+              //  if (Answer.numberPara==info.length) {
+                    Answer answer = new Answer();
+                    answer.setId(Integer.parseInt(info[0]));
+                    answer.setActualDepartTime(Integer.parseInt(info[1]));
+                   //装上最短子序列
+                    List<Integer> tmp = new ArrayList<>();
+                    for (int i = 2; i < info.length; ++i) {
+                        tmp.add(Integer.parseInt(info[i]));
+                    }
+                    answer.setShortestPath(tmp);
+                    list.add(answer);
+               // }
+            }
+            return list;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+
             //关闭资源
             FileUtil.closeBufferedReader(bufferedReader);
         }
