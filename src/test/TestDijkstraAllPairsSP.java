@@ -11,8 +11,7 @@ import pojo.Car;
 import pojo.Cross;
 import pojo.Road;
 import utils.FileUtil;
-import utils.GenerateGraph;
-import utils.WtriteData;
+
 
 import java.util.*;
 
@@ -231,35 +230,57 @@ public class TestDijkstraAllPairsSP {
         System.out.println("统计后的answers个数："+ sum);
         // 根据生成的关联集合修改answers的出发时间
         //将多个list,写成一个大list，写入answer.txt
-        List<Answer> res = new ArrayList<>();
+        //List<Answer> res = new ArrayList<>();
                 if(!at.isEmpty()) {
-                    for (Answer a : at) {
-                        res.add(a);
-                    }
+//                    for (Answer a : at) {
+//                        //res.add(a);
+//
+//                    }
+                    ListAnswer2txt(at,"data/train1/answer.txt");
                 }
                 int cnt = 0;
                 for (List<Answer> list : associatedList) {
                     cnt++;
-                    int M = list.size() > 10 ? list.size() / 10 : 1;
+                    int M = 500;
+                    int detime = 100;
+                    //int M = list.size() > 100 ? list.size() / 100 : 1;
                     //int hundredParam = (list.size() > 100 && list.size() < 1000 ) ? list.size()/10 : 1;
                     System.out.println("这是第" + cnt + "个集合，" + "它有" + list.size() + "个元素。");
                     //对关联的车辆数大于1000的分批
-                    if (list.size() >= 100) {
-                        for (int i = 0; i < list.size(); i++) {
+                    if (list.size() >= M) {
+                        int i = 0;
+                        M = 500;
+                        detime = 100;
+                        while (i<list.size()) {
                             Answer a = list.get(i);
-                            a.setActualDepartTime(a.getActualDepartTime() + (i / M) * M); //(i / M) * M / 2
-                            res.add(a);
+                            a.setActualDepartTime(a.getActualDepartTime() + detime);
+                            if ((i % M) == 0) {
+                                M += M;
+                                detime += detime;
+                            }
+
+                            i++;
                         }
+                        ListAnswer2txt(list,"data/train1/answer.txt");
+//                    int M = list.size() > 10 ? list.size() / 10 : 1;
+//                    //int hundredParam = (list.size() > 100 && list.size() < 1000 ) ? list.size()/10 : 1;
+//                    System.out.println("这是第" + cnt + "个集合，" + "它有" + list.size() + "个元素。");
+//                    //对关联的车辆数大于1000的分批
+//                    if (list.size() >= 100) {
+//                        for (int i = 0; i < list.size(); i++) {
+//                            Answer a = list.get(i);
+//                            a.setActualDepartTime(a.getActualDepartTime() + (i / M) * M); //(i / M) * M / 2
+////                            res.add(a);
+//                        }
+//                        ListAnswer2txt(list,"data/train1/answer.txt");
             }else{
-                for(Answer a: list){
-                    res.add(a);
-                }
+//                for(Answer a: list){
+//                    res.add(a);
+//                }
+                 ListAnswer2txt(list,"data/train1/answer.txt");
             }
 
         }
-        //
-        System.out.println("res.size:"+res.size()+"aaaaaa");
-        ListAnswer2txt(res,"data/train1/answer.txt");
 
     }
 
